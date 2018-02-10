@@ -7,7 +7,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" set the runtime path to include Vundle and initialize
+"------------------------------------------------------------
 call plug#begin()
 
 "------------------------------------------------------------
@@ -35,6 +35,7 @@ Plug 'tpope/vim-surround'
 " adds support for more commands to the vim repeat command '.'
 Plug 'tpope/vim-repeat'
 
+" completion
 " Plug 'mtscout6/syntastic-local-eslint.vim'
 " Plug 'valloric/youcompleteme'
 " Plug 'ternjs/tern_for_vim'
