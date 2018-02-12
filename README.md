@@ -3,6 +3,7 @@
 ## Setup
 For [Neovim](https://github.com/neovim/neovim):
 
+- See [the issue](https://github.com/wallw-bits/nvim-config/issues/1) regarding the automatic install
 - `brew install neovim/neovim/neovim` <-- not a typo
 - clone to `~/.config/nvim`
 - `pip install neovim` (or pip3 if you like) for plugins using Python
@@ -13,6 +14,12 @@ For Vim
 - `brew install vim --with-override-system-vi`
 - clone to `~/.vim`
 - `ln -s ~/.vim/init.vim ~/.vimrc`
+
+For both, follow instructions for neovim, and before opening either, run
+```
+ln -s ~/.config/nvim ~/.vim
+ln -s ~/.config/nvim/init.vim ~/.vimrc
+```
 
 ## Config
 All the `.vim` files should be well-commented, so have a look. Note that `init.vim` (aka `.vimrc`) has the "potentially dangerous" command section at the bottom.
