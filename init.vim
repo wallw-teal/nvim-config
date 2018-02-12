@@ -11,7 +11,7 @@ endif
 call plug#begin()
 
 "------------------------------------------------------------
-" Base settings - this is a superset of tpop/vim-sensible
+" Base settings - this is a superset of tpope/vim-sensible
 Plug 'sheerun/vimrc'
 
 " hopefully a good colorscheme
@@ -29,7 +29,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 " git stuff in vim
 Plug 'tpope/vim-fugitive'
 
-" add surround support (think braces/brackets/parens/xml tags
+" add surround support (think braces/brackets/parens/xml tags)
 Plug 'tpope/vim-surround'
 
 " adds support for more commands to the vim repeat command '.'
@@ -115,6 +115,7 @@ call matchadd('ColorColumn', '\%121v', 100)
 
 " ensure there's a space between the comment syntax and the actual comment
 :let g:NERDSpaceDelims = 1
+
 
 "------------------------------------------------------------
 " WARNING: Potentially dangerous settings
