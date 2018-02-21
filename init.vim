@@ -48,7 +48,7 @@ Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'nvie/vim-togglemouse'
 
 " commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 
 "------------------------------------------------------------
 " all of your plugins must be added before the following line
@@ -75,11 +75,14 @@ inoremap jj <ESC>
 nnoremap <leader>p :CtrlP<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
-" h/j/k/l to move to the window, just hold control and hit the direction
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" h/j/k/l to move to the window, just hit leader and then the direction
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+
+" toggle paste mode with <leader>z
+set pastetoggle=<leader>z
 
 
 "------------------------------------------------------------
