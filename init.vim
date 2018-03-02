@@ -84,6 +84,10 @@ nnoremap <leader>l <C-w>l
 " toggle paste mode with <leader>z
 set pastetoggle=<leader>z
 
+" system clipboard yank and put
+noremap <leader>c "*y
+noremap <leader>v "*p
+
 
 "------------------------------------------------------------
 " Airline Settings
