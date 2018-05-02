@@ -28,7 +28,7 @@ Plug 'vim-airline/vim-airline'
 " repo for other install options
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_command_prefix = 'Fzf'
+let g:fzf_command_prefix = 'fzf'
 
 " git stuff in vim
 Plug 'tpope/vim-fugitive'
@@ -81,7 +81,7 @@ let mapleader = ' '
 inoremap jj <ESC>
 
 " <leader>-p should open fzf
-nnoremap <leader>p :FzfGFiles<CR>
+nnoremap <leader>p :fzfGFiles<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
 " h/j/k/l to move to the window, just hit leader and then the direction

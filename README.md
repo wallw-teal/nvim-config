@@ -20,6 +20,9 @@ For both, follow instructions for neovim, and before opening either, run
 ln -s ~/.config/nvim ~/.vim
 ln -s ~/.config/nvim/init.vim ~/.vimrc
 ```
+## Notes
+
+- fzf commands (or `<leader>p`) require fzf to be installed via `brew install fzf`
 
 ## Config
 All the `.vim` files should be well-commented, so have a look. Note that `init.vim` (aka `.vimrc`) has the "potentially dangerous" command section at the bottom.
