@@ -24,7 +24,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 
 " Fuzzy file search
-Plug 'ctrlpvim/ctrlp.vim'
+" Note that this requires 'brew install fzf' in its current form. See the
+" repo for other install options
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+let g:fzf_command_prefix = 'Fzf'
 
 " git stuff in vim
 Plug 'tpope/vim-fugitive'
@@ -35,10 +39,8 @@ Plug 'tpope/vim-surround'
 " adds support for more commands to the vim repeat command '.'
 Plug 'tpope/vim-repeat'
 
-" completion
-" Plug 'mtscout6/syntastic-local-eslint.vim'
-" Plug 'valloric/youcompleteme'
-" Plug 'ternjs/tern_for_vim'
+" linting
+Plug 'w0rp/ale'
 
 " Snippets and templates
 " You need to 'pip install neovim' for this to work in neovim
@@ -50,9 +52,16 @@ Plug 'nvie/vim-togglemouse'
 " commenting
 Plug 'tpope/vim-commentary'
 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
 "------------------------------------------------------------
 " all of your plugins must be added before the following line
 call plug#end()            " required
+
+"------------------------------------------------------------
+" Wild Menu
+set wildignore=*/node_modules,*/.git
 
 "------------------------------------------------------------
 " Mappings
@@ -71,8 +80,8 @@ let mapleader = ' '
 " make that exit input mode too.
 inoremap jj <ESC>
 
-" <leader>-p should open CtrlP
-nnoremap <leader>p :CtrlP<CR>
+" <leader>-p should open fzf
+nnoremap <leader>p :FzfGFiles<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
 " h/j/k/l to move to the window, just hit leader and then the direction
@@ -98,9 +107,26 @@ let g:airline_powerline_fonts = 1
 
 
 "------------------------------------------------------------
-" ctrlp settings
-" ignore files in .gitignore
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" ALE Settings
+"
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+
+let g:ale_fix_on_save = 1
+
+" only lint/fix on save
+let g:ale_lint_on_text_changed = 'never'
+
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
 
 
 "------------------------------------------------------------
