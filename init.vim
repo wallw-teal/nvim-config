@@ -143,14 +143,6 @@ call matchadd('ColorColumn', '\%121v', 100)
 
 
 "------------------------------------------------------------
-" Comment Settings
-" see :h NERDCommenter
-
-" ensure there's a space between the comment syntax and the actual comment
-:let g:NERDSpaceDelims = 1
-
-
-"------------------------------------------------------------
 " WARNING: Potentially dangerous settings
 
 " Automatically strip trailing whitespace just before save
