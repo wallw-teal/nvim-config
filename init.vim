@@ -64,6 +64,11 @@ call plug#end()            " required
 set wildignore=*/node_modules,*/.git
 
 "------------------------------------------------------------
+" For neovim, incrementally highlight and replace when
+" running %s/needle/replacment/
+set inccommand=nosplit
+
+"------------------------------------------------------------
 " Mappings
 
 " In Vim, the mapleader or <leader> key is like a namespaced command key for
@@ -82,6 +87,7 @@ inoremap jj <ESC>
 
 " <leader>-p should open fzf
 nnoremap <leader>p :FzfGFiles<CR>
+nnoremap <leader>f :FzfFiles<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
 " h/j/k/l to move to the window, just hit leader and then the direction
@@ -104,6 +110,13 @@ noremap <leader>v "*p
 " Only enable this if you have powerline fonts installed
 " see https://github.com/powerline/fonts
 let g:airline_powerline_fonts = 1
+
+
+"------------------------------------------------------------
+" Performance Settings
+"
+" Don't bother highligting anything over 200 chars
+set synmaxcol=200
 
 
 "------------------------------------------------------------
