@@ -26,7 +26,7 @@ Plug 'vim-airline/vim-airline'
 " Fuzzy file search
 " Note that this requires 'brew install fzf' in its current form. See the
 " repo for other install options
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'Fzf'
 
