@@ -24,8 +24,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 
 " Fuzzy file search
-" Note that this requires 'brew install fzf' in its current form. See the
-" repo for other install options
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'Fzf'
@@ -51,9 +49,6 @@ Plug 'nvie/vim-togglemouse'
 
 " commenting
 Plug 'tpope/vim-commentary'
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
 
 "------------------------------------------------------------
 " all of your plugins must be added before the following line
@@ -85,8 +80,10 @@ let mapleader = ' '
 " make that exit input mode too.
 inoremap jj <ESC>
 
-" <leader>-p should open fzf
+" <leader>p should open fzf for all files tracked by git
 nnoremap <leader>p :FzfGFiles<CR>
+
+" <leader>f should open fzf for all files
 nnoremap <leader>f :FzfFiles<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
@@ -99,7 +96,12 @@ nnoremap <leader>l <C-w>l
 " toggle paste mode with <leader>z
 set pastetoggle=<leader>z
 
+
 " system clipboard yank and put
+" Note: this requires vim to be built with the +clipboard feature flag
+" run :echo has('clipboard') to see if you have it
+"
+" see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 noremap <leader>c "*y
 noremap <leader>v "*p
 
