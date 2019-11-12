@@ -7,7 +7,7 @@ For [Neovim](https://github.com/neovim/neovim):
 - `brew install neovim/neovim/neovim` <-- not a typo
 - clone to `~/.config/nvim`
 - `pip install neovim` (or pip3 if you like) for plugins using Python
-- ensure [powerline fonts](https://github.com/powerline/fonts) are installed and set in [iTerm2](https://www.iterm2.com/)
+- ensure [powerline fonts](https://github.com/powerline/fonts) are installed and set in [iTerm2](https://www.iterm2.com/) or whatever terminal you use
 - if you want the same colorscheme in the terminal, check out [gruvbox-contrib](https://github.com/morhetz/gruvbox-contrib)
 
 For Vim
