@@ -1,7 +1,8 @@
 # ignore everything in root
 /*
-# except 
+# except
 !init.vim
 !/ftplugin/
+!/after/
 !.gitignore
 !README.md

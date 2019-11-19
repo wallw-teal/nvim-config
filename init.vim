@@ -14,9 +14,6 @@ call plug#begin()
 " Base settings - this is a superset of tpope/vim-sensible
 Plug 'sheerun/vimrc'
 
-" hopefully a good colorscheme
-Plug 'morhetz/gruvbox'
-
 " syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
@@ -49,6 +46,10 @@ Plug 'nvie/vim-togglemouse'
 
 " commenting
 Plug 'tpope/vim-commentary'
+
+" hopefully a good colorscheme
+Plug 'morhetz/gruvbox'
+
 
 "------------------------------------------------------------
 " all of your plugins must be added before the following line
@@ -107,6 +108,10 @@ noremap <leader>v "*p
 
 
 "------------------------------------------------------------
+" Svelte Development
+"au! BufNewFile,BufRead *.svelte set ft=html
+
+"------------------------------------------------------------
 " Airline Settings
 "
 " Only enable this if you have powerline fonts installed
@@ -146,8 +151,12 @@ let g:ale_pattern_options = {
 
 "------------------------------------------------------------
 " Color Settings
-set background=dark
-colorscheme gruvbox
+if $TERM_PROGRAM =~ "iTerm"
+  set termguicolors
+endif
+
+" Note: the actual colorscheme is set in after/plugins/colorscheme.vim
+" to ensure we overwrite any potential colorschemes from plugins with ours
 
 " highlight 81st and 121st column
 " See http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim for
