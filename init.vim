@@ -151,9 +151,7 @@ let g:ale_pattern_options = {
 
 "------------------------------------------------------------
 " Color Settings
-if $TERM_PROGRAM =~ "iTerm"
-  set termguicolors
-endif
+set termguicolors
 
 " Note: the actual colorscheme is set in after/plugins/colorscheme.vim
 " to ensure we overwrite any potential colorschemes from plugins with ours
