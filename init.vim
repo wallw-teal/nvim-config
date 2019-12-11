@@ -14,6 +14,9 @@ call plug#begin()
 " Base settings - this is a superset of tpope/vim-sensible
 Plug 'sheerun/vimrc'
 
+" .editorconfig file support
+Plug 'editorconfig/editorconfig-vim'
+
 " syntax highlighting
 Plug 'sheerun/vim-polyglot'
 
@@ -62,7 +65,9 @@ set wildignore=*/node_modules,*/.git
 "------------------------------------------------------------
 " For neovim, incrementally highlight and replace when
 " running %s/needle/replacment/
-set inccommand=nosplit
+if has('nvim')
+  set inccommand=nosplit
+endif
 
 "------------------------------------------------------------
 " Mappings
@@ -151,7 +156,9 @@ let g:ale_pattern_options = {
 
 "------------------------------------------------------------
 " Color Settings
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
 
 " Note: the actual colorscheme is set in after/plugins/colorscheme.vim
 " to ensure we overwrite any potential colorschemes from plugins with ours
