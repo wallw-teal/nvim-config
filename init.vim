@@ -83,8 +83,9 @@ endif
 " By default it is '\', make it space because we are too lazy to reach that
 " far and we like using both hands.
 "
+" The sheerun/vimrc plugin sets this to space when the plugin loads.
+"
 " Example: <leader>p is <leader> followed by 'p' within 1000ms
-let mapleader = ' '
 
 " <ESC> is kinda far away. And no one has ever typed 'jj' on purpose. So let's
 " make that exit input mode too.
