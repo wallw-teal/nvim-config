@@ -37,22 +37,23 @@ Plug 'tpope/vim-surround'
 " adds support for more commands to the vim repeat command '.'
 Plug 'tpope/vim-repeat'
 
-" linting
-Plug 'w0rp/ale'
+Plug 'prettier/vim-prettier', {'do': 'npm install'}
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'codechips/coc-svelte', {'do': 'npm install'}
+
+Plug 'elixir-lsp/elixir-ls', {'do': { -> g:elixirls.compile() } }
 
 " Snippets and templates
 " You need to 'pip install neovim' for this to work in neovim
 Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
-
-" toggle mouse between vim/terminal
-Plug 'nvie/vim-togglemouse'
 
 " commenting
 Plug 'tpope/vim-commentary'
 
 " hopefully a good colorscheme
 Plug 'morhetz/gruvbox'
-
 
 "------------------------------------------------------------
 " all of your plugins must be added before the following line
@@ -86,8 +87,8 @@ let mapleader = ' '
 " make that exit input mode too.
 inoremap jj <ESC>
 
-" <leader>p should open fzf for all files tracked by git
-nnoremap <leader>p :FzfGFiles<CR>
+" <leader>g should open fzf for all files tracked by git
+nnoremap <leader>g :FzfGFiles<CR>
 
 " <leader>f should open fzf for all files
 nnoremap <leader>f :FzfFiles<CR>
@@ -99,22 +100,20 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
-" toggle paste mode with <leader>z
-set pastetoggle=<leader>z
-
-
 " system clipboard yank and put
 " Note: this requires vim to be built with the +clipboard feature flag
 " run :echo has('clipboard') to see if you have it
-"
-" see https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
-noremap <leader>c "*y
-noremap <leader>v "*p
 
+" Copy to clipboard
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+yg_
+nnoremap <leader>y "+y
 
-"------------------------------------------------------------
-" Svelte Development
-"au! BufNewFile,BufRead *.svelte set ft=html
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 "------------------------------------------------------------
 " Airline Settings
@@ -123,36 +122,88 @@ noremap <leader>v "*p
 " see https://github.com/powerline/fonts
 let g:airline_powerline_fonts = 1
 
-
 "------------------------------------------------------------
 " Performance Settings
 "
 " Don't bother highligting anything over 200 chars
 set synmaxcol=200
 
+"------------------------------------------------------------
+" Prettier Settings
+let g:prettier#quickfix_enabled = 0
+let g:prettier#autoformat_require_pragma = 0
+au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.json PrettierAsync
 
 "------------------------------------------------------------
-" ALE Settings
+" COC Settings
+
+nmap ff <Plug>(coc-format-selected)
+nmap rn <Plug>(coc-rename)
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
+
+set updatetime=300
+set shortmess+=c " don't give |ins-completion-menu| messages.
+
+" Use <leader>d to show documentation in preview window
+nnoremap <leader>d :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+"------------------------------------------------------------
+" Elixir Language Server support
 "
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
+" This is admittedly kinda messy. Someone should totally write a plugin
+" which sets all this up.
+let g:elixirls = {
+  \ 'path': printf('%s/%s', stdpath('config'), 'plugged/elixir-ls'),
+  \ }
 
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\}
+let g:elixirls.lsp = printf(
+  \ '%s/%s',
+  \ g:elixirls.path,
+  \ 'release/language_server.sh')
 
-let g:ale_fix_on_save = 1
+function! g:elixirls.compile(...)
+  let l:commands = join([
+    \ 'mix local.hex --force',
+    \ 'mix local.rebar --force',
+    \ 'mix deps.get',
+    \ 'mix compile',
+    \ 'mix elixir_ls.release'
+    \ ], '&&')
 
-" only lint/fix on save
-let g:ale_lint_on_text_changed = 'never'
+  echom '>>> Compiling elixirls'
+  silent call system(l:commands)
+  echom '>>> elixirls compiled'
+endfunction
 
-" Do not lint or fix minified files.
-let g:ale_pattern_options = {
-\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-\}
+call coc#config('languageserver', {
+  \ 'elixir': {
+  \   'command': g:elixirls.lsp,
+  \   'trace.server': 'verbose',
+  \   'filetypes': ['elixir', 'eelixer']
+  \ }
+  \})
 
+"------------------------------------------------------------
+" Svelte highlighting
+" The vim-svelte-plugin is added by vim-polyglot
+"
+" highlight TypeScript for <script lang="ts">
+let g:vim_svelte_plugin_use_typescript = 1
+" highlight sass/scss for <style lang="scss">
+let g:vim_svelte_plugin_use_sass = 1
 
 "------------------------------------------------------------
 " Color Settings
@@ -169,7 +220,6 @@ endif
 highlight ColorColumn ctermbg=53
 call matchadd('ColorColumn', '\%81v', 100)
 call matchadd('ColorColumn', '\%121v', 100)
-
 
 "------------------------------------------------------------
 " WARNING: Potentially dangerous settings
