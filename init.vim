@@ -94,8 +94,11 @@ inoremap jj <ESC>
 " <leader>g should open fzf for all files tracked by git
 nnoremap <leader>g :FzfGFiles<CR>
 
-" <leader>f should open fzf for all files
-nnoremap <leader>f :FzfFiles<CR>
+" <leader>o should open fzf for all files
+nnoremap <leader>o :FzfFiles<CR>
+
+" <leader>f should run fzf with ripgrep for file search by content
+nnoremap <leader>f :FzfRg<CR>
 
 " Remaps for working with splits. Rather than doing Ctrl-W and then
 " h/j/k/l to move to the window, just hit leader and then the direction
