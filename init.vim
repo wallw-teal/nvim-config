@@ -43,7 +43,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'codechips/coc-svelte', {'do': 'npm install'}
 
-Plug 'elixir-lsp/elixir-ls', {'do': { -> g:elixirls.compile() } }
+let g:elixir_exists = executable('mix') && executable('elixirc')
+if (g:elixir_exists)
+  Plug 'elixir-lsp/elixir-ls', {'do': { -> g:elixirls.compile() } }
+endif
 
 " Snippets and templates
 " You need to 'pip install neovim' for this to work in neovim
@@ -165,36 +168,38 @@ endfunction
 "
 " This is admittedly kinda messy. Someone should totally write a plugin
 " which sets all this up.
-let g:elixirls = {
-  \ 'path': printf('%s/%s', stdpath('config'), 'plugged/elixir-ls'),
-  \ }
+if (g:elixir_exists)
+  let g:elixirls = {
+    \ 'path': printf('%s/%s', stdpath('config'), 'plugged/elixir-ls'),
+    \ }
 
-let g:elixirls.lsp = printf(
-  \ '%s/%s',
-  \ g:elixirls.path,
-  \ 'release/language_server.sh')
+  let g:elixirls.lsp = printf(
+    \ '%s/%s',
+    \ g:elixirls.path,
+    \ 'release/language_server.sh')
 
-function! g:elixirls.compile(...)
-  let l:commands = join([
-    \ 'mix local.hex --force',
-    \ 'mix local.rebar --force',
-    \ 'mix deps.get',
-    \ 'mix compile',
-    \ 'mix elixir_ls.release'
-    \ ], '&&')
+  function! g:elixirls.compile(...)
+    let l:commands = join([
+      \ 'mix local.hex --force',
+      \ 'mix local.rebar --force',
+      \ 'mix deps.get',
+      \ 'mix compile',
+      \ 'mix elixir_ls.release'
+      \ ], '&&')
 
-  echom '>>> Compiling elixirls'
-  silent call system(l:commands)
-  echom '>>> elixirls compiled'
-endfunction
+    echom '>>> Compiling elixirls'
+    silent call system(l:commands)
+    echom '>>> elixirls compiled'
+  endfunction
 
-call coc#config('languageserver', {
-  \ 'elixir': {
-  \   'command': g:elixirls.lsp,
-  \   'trace.server': 'verbose',
-  \   'filetypes': ['elixir', 'eelixer']
-  \ }
-  \})
+  call coc#config('languageserver', {
+    \ 'elixir': {
+    \   'command': g:elixirls.lsp,
+    \   'trace.server': 'verbose',
+    \   'filetypes': ['elixir', 'eelixer']
+    \ }
+    \})
+endif
 
 "------------------------------------------------------------
 " Svelte highlighting
