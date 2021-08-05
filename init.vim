@@ -37,23 +37,31 @@ Plug 'tpope/vim-surround'
 " adds support for more commands to the vim repeat command '.'
 Plug 'tpope/vim-repeat'
 
+" commenting
+Plug 'tpope/vim-commentary'
+
+" Snippets and templates
+" You need to 'pip install neovim' for this to work in neovim
+Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
+
+" *******************************
+" Language Server and Formatting Plugins
 Plug 'prettier/vim-prettier', {'do': 'npm install'}
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'codechips/coc-svelte', {'do': 'npm install'}
 
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install'}
+
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+
 let g:elixir_exists = executable('mix') && executable('elixirc')
 if (g:elixir_exists)
-  Plug 'elixir-lsp/elixir-ls', {'do': { -> g:elixirls.compile() } }
+  " Install and compile elixirls, which is referenced in coc-settings.json
+  Plug 'GrzegorzKozub/vim-elixirls', { 'do': ':ElixirLsCompileSync' }
 endif
-
-" Snippets and templates
-" You need to 'pip install neovim' for this to work in neovim
-Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
-
-" commenting
-Plug 'tpope/vim-commentary'
+" *******************************
 
 " hopefully a good colorscheme
 Plug 'morhetz/gruvbox'
@@ -166,44 +174,6 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-"------------------------------------------------------------
-" Elixir Language Server support
-"
-" This is admittedly kinda messy. Someone should totally write a plugin
-" which sets all this up.
-if (g:elixir_exists)
-  let g:elixirls = {
-    \ 'path': printf('%s/%s', stdpath('config'), 'plugged/elixir-ls'),
-    \ }
-
-  let g:elixirls.lsp = printf(
-    \ '%s/%s',
-    \ g:elixirls.path,
-    \ 'release/language_server.sh')
-
-  function! g:elixirls.compile(...)
-    let l:commands = join([
-      \ 'mix local.hex --force',
-      \ 'mix local.rebar --force',
-      \ 'mix deps.get',
-      \ 'mix compile',
-      \ 'mix elixir_ls.release'
-      \ ], '&&')
-
-    echom '>>> Compiling elixirls'
-    silent call system(l:commands)
-    echom '>>> elixirls compiled'
-  endfunction
-
-  call coc#config('languageserver', {
-    \ 'elixir': {
-    \   'command': g:elixirls.lsp,
-    \   'trace.server': 'verbose',
-    \   'filetypes': ['elixir', 'eelixer']
-    \ }
-    \})
-endif
 
 "------------------------------------------------------------
 " Svelte highlighting

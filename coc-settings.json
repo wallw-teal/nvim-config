@@ -1,0 +1,8 @@
+{
+  "coc.preferences.hoverTarget": "echo",
+  "diagnostic.messageTarget": "echo",
+  "elixir.pathToElixirLS": "~/.config/nvim/plugged/vim-elixirls/elixir-ls/release/language_server.sh",
+  "javascript.suggestionActions.enabled": true,
+  "signature.target": "echo",
+  "typescript.suggestionActions.enabled": true
+}
