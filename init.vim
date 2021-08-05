@@ -48,13 +48,19 @@ Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
 " Language Server and Formatting Plugins
 Plug 'prettier/vim-prettier', {'do': 'npm install'}
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
-Plug 'codechips/coc-svelte', {'do': 'npm install'}
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
-Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install'}
-
-Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'lighttiger2505/deoplete-vim-lsp'
 
 let g:elixir_exists = executable('mix') && executable('elixirc')
 if (g:elixir_exists)
@@ -150,30 +156,36 @@ let g:prettier#autoformat_require_pragma = 0
 au BufWritePre *.css,*.svelte,*.pcss,*.html,*.ts,*.js,*.json PrettierAsync
 
 "------------------------------------------------------------
-" COC Settings
+" vim-lsp settings
 
-nmap ff <Plug>(coc-format-selected)
-nmap rn <Plug>(coc-rename)
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
-set updatetime=300
-set shortmess+=c " don't give |ins-completion-menu| messages.
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
 
-" Use <leader>d to show documentation in preview window
-nnoremap <leader>d :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+    " refer to doc to add more commands
 endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 "------------------------------------------------------------
 " Svelte highlighting
