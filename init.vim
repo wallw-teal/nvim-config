@@ -95,9 +95,10 @@ endif
 "
 " Example: <leader>p is <leader> followed by 'p' within 1000ms
 
-" <ESC> is kinda far away. And no one has ever typed 'jj' on purpose. So let's
+" <ESC> is kinda far away. And no one has ever typed 'jk' on purpose. So let's
 " make that exit input mode too.
-inoremap jj <ESC>
+inoremap jk <ESC>
+inoremap kj <ESC>
 
 " <leader>g should open fzf for all files tracked by git
 nnoremap <leader>g :FzfGFiles<CR>
@@ -129,6 +130,16 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+" Bring search results to midscreen
+nnoremap n nzz
+nnoremap N Nzz
+
+" Keep at least 5 lines of context when moving near the top/bottom
+set scrolloff=5
+
+" I accidentally use macros way more than I intentionally use macros
+nnoremap Q @q
 
 "------------------------------------------------------------
 " Airline Settings
