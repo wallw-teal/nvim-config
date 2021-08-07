@@ -120,16 +120,8 @@ nnoremap <leader>l <C-w>l
 " Note: this requires vim to be built with the +clipboard feature flag
 " run :echo has('clipboard') to see if you have it
 
-" Copy to clipboard
-vnoremap <leader>y "+y
-nnoremap <leader>Y "+yg_
-nnoremap <leader>y "+y
-
-" Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+" Use system clipboard for yank/put
+set clipboard=unnamedplus
 
 " Bring search results to midscreen
 nnoremap n nzz
