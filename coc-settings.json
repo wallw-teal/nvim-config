@@ -7,5 +7,6 @@
   "signature.target": "echo",
   "typescript.suggestionActions.enabled": true,
   // TODO: This sucks. Find a way to map this to the current node install from nvm.
-  "tsserver.npm": "/Users/williamwall/.nvm/versions/node/v16.14.2/bin/npm"
+  "tsserver.npm": "/Users/williamwall/.nvm/versions/node/v18.15.0/bin/npm",
+  "svelte.enable-ts-plugin": true
 }
