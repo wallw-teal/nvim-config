@@ -56,6 +56,8 @@ Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install'}
 
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 
+Plug 'github/copilot.vim'
+
 let g:elixir_exists = executable('mix') && executable('elixirc')
 if (g:elixir_exists)
   " Install and compile elixirls, which is referenced in coc-settings.json
