@@ -1,6 +1,6 @@
 # nvim-config
 
-Adapted from #albingroen/nvim-lsp-typescript-config.
+Adapted from [nvim-lsp-typescript-config](https://github.com/albingroen/nvim-lsp-typescript-config).
 
 Only for [Neovim](https://github.com/neovim/neovim). Vim not supported.
 
