@@ -30,41 +30,13 @@ vim.api.nvim_set_keymap('n', 'tn', ':tabnew<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'tk', ':tabnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'tj', ':tabprev<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'to', ':tabo<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-S>', ':%s/', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-N>', ':call ToggleNetrw()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>m', ':bp<CR>', { noremap = true })
 
 vim.api.nvim_exec(
 [[
 " Better code indentation
 filetype plugin indent on
-
-" Explorer is closed by default
-let g:NetrwIsOpen=0
-
-" Disable top information
-let g:netrw_banner = 0
-
-" Use nested tree style explorer
-let g:netrw_liststyle = 3
-
-" Explorer takes up 25% of screen
-let g:netrw_winsize = 25
-
-function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Lexplore!
-    endif
-endfunction
 ]],
 true
 )
