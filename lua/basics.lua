@@ -33,13 +33,8 @@ vim.api.nvim_set_keymap('n', 'to', ':tabo<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>n', ':bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>m', ':bp<CR>', { noremap = true })
 
-vim.api.nvim_exec(
-[[
-" Better code indentation
-filetype plugin indent on
-]],
-true
-)
+-- This is not needed if using tree-sitter indent
+-- vim.api.nvim_exec( [[ filetype plugin indent on ]], true)
 
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
