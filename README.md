@@ -4,7 +4,7 @@ Adapted from [nvim-lsp-typescript-config](https://github.com/albingroen/nvim-lsp
 
 Only for [Neovim](https://github.com/neovim/neovim). Vim not supported.
 
-1. `brew install neovim`
+1. `brew install neovim tree-sitter`
 1. Install [Packer](https://github.com/wbthomason/packer.nvim)
 1. Run `:PackerSync`
 

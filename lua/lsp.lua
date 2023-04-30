@@ -32,8 +32,14 @@ cmp.setup({
 })
 
 -- Setup lspconfig.
+local lsp_defaults = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
 require('lspconfig').tsserver.setup {
-   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities = lsp_defaults
+}
+
+require('lspconfig').svelte.setup {
+   capabilities = lsp_defaults
 }
 
 vim.cmd([[nnoremap gd :lua vim.lsp.buf.definition()<CR>]])
