@@ -1,25 +1,12 @@
-# Neovim (or Vim) config
+# nvim-config
 
-## Setup
-For [Neovim](https://github.com/neovim/neovim):
+Adapted from #albingroen/nvim-lsp-typescript-config.
 
-- See [the issue](https://github.com/wallw-bits/nvim-config/issues/1) regarding the automatic install
-- `brew install neovim`
-- clone to `~/.config/nvim`
-- `pip install pynvim` (or pip3 if you like) for plugins using Python
-- ensure [powerline fonts](https://github.com/powerline/fonts) are installed and set in [iTerm2](https://www.iterm2.com/) or whatever terminal you use
-- if you want the same colorscheme in the terminal, check out [gruvbox-contrib](https://github.com/morhetz/gruvbox-contrib)
+Only for [Neovim](https://github.com/neovim/neovim). Vim not supported.
 
-For Vim
-- `brew install vim --with-override-system-vi`
-- clone to `~/.vim`
-- `ln -s ~/.vim/init.vim ~/.vimrc`
+1. `brew install neovim`
+1. Install [Packer](https://github.com/wbthomason/packer.nvim)
+1. Run `:PackerSync`
 
-For both, follow instructions for neovim, and before opening either, run
-```
-ln -s ~/.config/nvim ~/.vim
-ln -s ~/.config/nvim/init.vim ~/.vimrc
-```
-
-## Config
-All the `.vim` files should be well-commented, so have a look. Note that `init.vim` (aka `.vimrc`) has the "potentially dangerous" command section at the bottom.
+if you want the same colorscheme in the terminal, check out
+[gruvbox-contrib](https://github.com/morhetz/gruvbox-contrib)

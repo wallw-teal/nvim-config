@@ -1,9 +1,1 @@
-# ignore everything in root
-/*
-# except
-!coc-settings.json
-!init.vim
-!/ftplugin/
-!/after/
-!.gitignore
-!README.md
+plugin
