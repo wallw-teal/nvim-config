@@ -11,7 +11,7 @@ vim.o.hlsearch = false
 vim.o.swapfile = false
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.scrolloff = 3
+vim.o.scrolloff = 5
 vim.o.errorbells = false
 vim.o.shiftwidth = 2
 vim.o.numberwidth = 4
@@ -55,7 +55,7 @@ function! ToggleNetrw()
         let i = bufnr("$")
         while (i >= 1)
             if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
+                silent exe "bwipeout " . i
             endif
             let i-=1
         endwhile
