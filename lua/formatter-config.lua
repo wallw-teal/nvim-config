@@ -5,8 +5,8 @@ require('formatter').setup({
     typescript = {
       function()
         return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          exe = "npx",
+          args = {"prettier", "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
@@ -14,8 +14,8 @@ require('formatter').setup({
     typescriptreact = {
       function()
         return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          exe = "npx",
+          args = {"prettier", "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
@@ -23,8 +23,8 @@ require('formatter').setup({
     javascript = {
       function()
         return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          exe = "npx",
+          args = {"prettier", "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
@@ -32,8 +32,8 @@ require('formatter').setup({
     javascriptreact = {
       function()
         return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          exe = "npx",
+          args = {"prettier", "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
@@ -41,8 +41,8 @@ require('formatter').setup({
     json = {
       function()
         return {
-          exe = "prettier",
-          args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          exe = "npx",
+          args = {"prettier", "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
