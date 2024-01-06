@@ -22,6 +22,7 @@ autocmd('TextYankPost', {
     end,
 })
 
+-- remove trailing whitespace
 autocmd({"BufWritePre"}, {
     group = WallWGroup,
     pattern = "*",
@@ -29,5 +30,6 @@ autocmd({"BufWritePre"}, {
 })
 
 vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
+-- clean this up after we get used to it
+-- vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
