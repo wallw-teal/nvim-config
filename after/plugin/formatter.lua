@@ -14,11 +14,11 @@ prettier = {
 
 require('formatter').setup({
     filetype = {
-        typescript = prettier,
-        typescriptreact = prettier,
         javascript = prettier,
         javascriptreact = prettier,
         json = prettier,
+        typescript = prettier,
+        typescriptreact = prettier,
     }
 })
 
