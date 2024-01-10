@@ -57,44 +57,29 @@ vim.diagnostic.config({
 })
 
 local cmp = require('cmp')
-local cmp_action = lsp_zero.cmp_action()
-local cmp_format = lsp_zero.cmp_format()
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
 require('luasnip.loaders.from_vscode').lazy_load()
 
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-
 cmp.setup({
-  formatting = cmp_format,
-  preselect = 'item',
-  completion = {
-    completeopt = 'menu,menuone,noinsert'
-  },
-  window = {
-    documentation = cmp.config.window.bordered(),
-  },
-  sources = {
-    {name = 'path'},
-    {name = 'nvim_lsp'},
-    {name = 'nvim_lua'},
-    {name = 'buffer', keyword_length = 3},
-    {name = 'luasnip', keyword_length = 2},
-  },
-  mapping = cmp.mapping.preset.insert({
-    -- toggle completion menu
-    ['<C-Space>'] = cmp_action.toggle_completion(),
-
-    -- Not tab completion because Copilot is using that
-    ['<C-n'] = cmp_action.tab_complete(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-y>'] = cmp.mapping.confirm({select = false}),
-
-    -- navigate between snippet placeholder
-    ['<C-m>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-n>'] = cmp_action.luasnip_jump_backward(),
-
-    -- scroll documentation window
-    ['<C-d>'] = cmp.mapping.scroll_docs(5),
-    ['<C-u>'] = cmp.mapping.scroll_docs(-5),
-  }),
+    formatting = lsp_zero.cmp_format(),
+    sources = {
+        {name = 'path'},
+        {name = 'nvim_lsp'},
+        {name = 'nvim_lua'},
+        {name = 'luasnip', keyword_length = 2},
+        {name = 'buffer', keyword_length = 3},
+    },
+    window = {
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        -- scroll documentation window
+        ['<C-d>'] = cmp.mapping.scroll_docs(5),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-5),
+    }),
 })
