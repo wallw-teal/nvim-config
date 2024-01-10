@@ -71,8 +71,9 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-nvim-lua'},
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            -- One day I'll actually investigate these
+            -- {'L3MON4D3/LuaSnip'},
+            -- {'rafamadriz/friendly-snippets'},
         }
     }
 

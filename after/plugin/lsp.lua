@@ -59,7 +59,7 @@ vim.diagnostic.config({
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
-require('luasnip.loaders.from_vscode').lazy_load()
+-- require('luasnip.loaders.from_vscode').lazy_load()
 
 cmp.setup({
     formatting = lsp_zero.cmp_format(),
@@ -67,7 +67,7 @@ cmp.setup({
         {name = 'path'},
         {name = 'nvim_lsp'},
         {name = 'nvim_lua'},
-        {name = 'luasnip', keyword_length = 2},
+        -- {name = 'luasnip', keyword_length = 2},
         {name = 'buffer', keyword_length = 3},
     },
     window = {
