@@ -1,5 +1,26 @@
 local lsp_zero = require('lsp-zero')
 
+local format_deny_by_client = {
+    jsonls = true,
+    tsserver = true,
+    stylelint_lsp = true,
+}
+
+local function get_filter(bufnr)
+    return function(client)
+        return format_deny_by_client[client.name]
+    end
+end
+
+-- custom format function because we want some lsp clients to use the formatter
+-- plugin instead (e.g. for prettier, which is not an lsp)
+function format(options)
+    options = options or {}
+    options.bufnr = options.bufnr or vim.api.nvim_get_current_buf()
+    options.filter = get_filter(options.bufnr)
+    vim.lsp.buf.format(options)
+end
+
 lsp_zero.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
@@ -20,40 +41,40 @@ lsp_zero.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
-    vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+    vim.cmd [[autocmd BufWritePre <buffer> lua format()]]
 end)
 
 --- if you want to know more about lsp-zero and mason.nvim
 --- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {},
-  handlers = {
-    lsp_zero.default_setup,
-    lua_ls = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-  }
+    ensure_installed = {},
+    handlers = {
+        lsp_zero.default_setup,
+        lua_ls = function()
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+        end,
+    }
 })
 
 lsp_zero.set_sign_icons({
-  error = '✘',
-  warn = '▲',
-  hint = '⚑',
-  info = ''
+    error = '✘',
+    warn = '▲',
+    hint = '⚑',
+    info = ''
 })
 
 vim.diagnostic.config({
-  virtual_text = false,
-  severity_sort = true,
-  float = {
-    style = 'minimal',
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
+    virtual_text = false,
+    severity_sort = true,
+    float = {
+        style = 'minimal',
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+    },
 })
 
 local cmp = require('cmp')
