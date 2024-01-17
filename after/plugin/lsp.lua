@@ -8,7 +8,11 @@ local format_deny_by_client = {
 
 local function get_filter(bufnr)
     return function(client)
-        return format_deny_by_client[client.name]
+        if format_deny_by_client[client.name] then
+            return false
+        end
+
+        return true
     end
 end
 
