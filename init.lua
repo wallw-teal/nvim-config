@@ -652,7 +652,7 @@ require('lazy').setup({
         html = {},
         htmx = {},
         elixirls = {
-          cmd = { '/Users/williamwall/.asdf/shims/elixir-ls' },
+          cmd = { 'elixir-ls' },
         },
 
         lua_ls = {
