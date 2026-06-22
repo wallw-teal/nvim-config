@@ -223,13 +223,13 @@ vim.keymap.set('n', '<c-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<c-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- These mappings control the size of splits (height/width)
-vim.keymap.set("n", "<M-,>", "<c-w>5<")
-vim.keymap.set("n", "<M-.>", "<c-w>5>")
-vim.keymap.set("n", "<M-t>", "<C-W>+")
-vim.keymap.set("n", "<M-s>", "<C-W>-")
+vim.keymap.set('n', '<M-,>', '<c-w>5<')
+vim.keymap.set('n', '<M-.>', '<c-w>5>')
+vim.keymap.set('n', '<M-t>', '<C-W>+')
+vim.keymap.set('n', '<M-s>', '<C-W>-')
 
 -- execute the current file
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+vim.keymap.set('n', '<leader><leader>x', '<cmd>source %<CR>', { desc = 'Execute the current file' })
 
 -- greatest remap ever: paste from system clipboard
 vim.keymap.set('x', '<leader>p', [["_dP]])
@@ -249,12 +249,12 @@ vim.keymap.set('n', '<leader>fml', '<cmd>CellularAutomaton make_it_rain<CR>')
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -330,7 +330,7 @@ require('lazy').setup({
   -- after the plugin has been loaded:
   --  config = function() ... end
 
-  {                     -- Useful plugin to show you pending keybinds.
+  { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -359,7 +359,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for installation instructions
@@ -378,7 +378,7 @@ require('lazy').setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -402,7 +402,7 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
-      local data = assert(vim.fn.stdpath "data") --[[@as string]]
+      local data = assert(vim.fn.stdpath 'data') --[[@as string]]
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -415,7 +415,7 @@ require('lazy').setup({
         -- pickers = {}
         fzf = {},
         history = {
-          path = vim.fs.joinpath(data, "telescope_history.sqlite3"),
+          path = vim.fs.joinpath(data, 'telescope_history.sqlite3'),
           limit = 100,
         },
         extensions = {
@@ -481,7 +481,7 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta',  lazy = true },
+  { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -493,7 +493,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       'hrsh7th/cmp-nvim-lsp',
@@ -636,9 +636,9 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
-        templ = {},
-        -- pyright = {},
+        -- gopls = {},
+        -- templ = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -650,10 +650,10 @@ require('lazy').setup({
         tailwindcss = {},
         svelte = {},
         html = {},
-        htmx = {},
-        elixirls = {
-          cmd = { 'elixir-ls' },
-        },
+        -- htmx = {},
+        -- elixirls = {
+        --   cmd = { 'elixir-ls' },
+        -- },
 
         lua_ls = {
           -- cmd = {...},
@@ -701,7 +701,7 @@ require('lazy').setup({
       }
 
       -- setup gleam separately. It is not available from mason-tool-installer
-      require('lspconfig').gleam.setup({})
+      -- require('lspconfig').gleam.setup {}
     end,
   },
 
@@ -789,7 +789,7 @@ require('lazy').setup({
       -- 'rafamadriz/friendly-snippets',
     },
     config = function()
-      local lspkind = require('lspkind')
+      local lspkind = require 'lspkind'
       lspkind.init()
 
       -- See `:help cmp`
@@ -798,7 +798,7 @@ require('lazy').setup({
       luasnip.config.setup {}
 
       -- load custom snippets
-      for _, ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/custom/snippets/*.lua", true)) do
+      for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/custom/snippets/*.lua', true)) do
         loadfile(ft_path)()
       end
 
@@ -882,7 +882,7 @@ require('lazy').setup({
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
     'EdenEast/nightfox.nvim',
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here.
@@ -896,7 +896,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim',       event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -937,59 +937,63 @@ require('lazy').setup({
   },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = {
-          'bash',
-          'c',
-          'diff',
-          'eex',
-          'elixir',
-          'gleam',
-          'go',
-          'heex',
-          'html',
-          'javascript',
-          'lua',
-          'markdown',
-          'markdown_inline',
-          'query',
-          'surface',
-          'svelte',
-          'typescript',
-          'vim',
-          'vimdoc',
-        },
+    init = function()
+      require('nvim-treesitter').setup()
 
-        -- Autoinstall languages that are not installed
-        auto_install = true,
-        highlight = {
-          -- Disable slow treesitter highlight for large files
-          disable = function(_lang, buf)
-            local max_filesize = 100 * 1024 -- 100 KB
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-
-          enable = true,
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          additional_vim_regex_highlighting = false,
-        },
-        indent = { enable = true },
+      local ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'eex',
+        'elixir',
+        'gleam',
+        'go',
+        'heex',
+        'html',
+        'javascript',
+        'json',
+        'lua',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'surface',
+        'svelte',
+        'tsx',
+        'typescript',
+        'vim',
+        'vimdoc',
       }
 
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+      local installed = require('nvim-treesitter.config').get_installed()
+      local parsers_to_install = vim.tbl_filter(function(parser)
+        return not vim.tbl_contains(installed, parser)
+      end, ensure_installed)
+
+      if #parsers_to_install > 0 then
+        require('nvim-treesitter').install(parsers_to_install)
+      end
+
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          local buf = args.buf
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return
+          end
+
+          local ft = vim.bo[buf].filetype
+          local lang = ft ~= '' and vim.treesitter.language.get_lang(ft) or nil
+          local ok_parser, parser = lang and pcall(vim.treesitter.get_parser, buf, lang) or false, nil
+          if ok_parser and parser then
+            pcall(vim.treesitter.start, buf)
+            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
     end,
   },
 
@@ -1005,14 +1009,6 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
 
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup({
-        ignore_filetypes = { 'gleam' },
-      })
-    end
-  },
   { 'eandrju/cellular-automaton.nvim' },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
