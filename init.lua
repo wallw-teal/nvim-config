@@ -954,6 +954,7 @@ require('lazy').setup({
         'heex',
         'html',
         'javascript',
+        'jsx',
         'json',
         'lua',
         'markdown',
@@ -987,10 +988,12 @@ require('lazy').setup({
 
           local ft = vim.bo[buf].filetype
           local lang = ft ~= '' and vim.treesitter.language.get_lang(ft) or nil
-          local ok_parser, parser = lang and pcall(vim.treesitter.get_parser, buf, lang) or false, nil
-          if ok_parser and parser then
-            pcall(vim.treesitter.start, buf)
-            vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          if lang then
+            local ok_parser, parser = pcall(vim.treesitter.get_parser, buf, lang)
+            if ok_parser and parser then
+              pcall(vim.treesitter.start, buf, lang)
+              vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
           end
         end,
       })
